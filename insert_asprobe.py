@@ -17,7 +17,6 @@ from diamond_miner.insert import InsertPreProbes,InsertByPreProbes
 from diamond_miner.queries.query import Query, probes_table, asprobes_table, group_mapping
 from diamond_miner.subsets import subsets_for
 from diamond_miner.typing import IPNetwork
-from diamond_miner.get_target_as import get_target_as
 ## TODO : rewrite this function using asprobes inner join group_mapping
 def insert_as_probe(client: ClickHouseClient, 
                     measurement_id: str, 

@@ -28,7 +28,7 @@ class CreateResultsView(Query):
         SELECT t1.ip_asn, t1.probe_dst_addr,t1.probe_src_port, t1.reply_src_addr, t1.probe_ttl, t1.asn
         FROM (
             SELECT bgp.ip_asn, results.probe_dst_addr,results.probe_src_port, results.reply_src_addr, results.probe_ttl, results.asn, bgp.len,
-                ROW_NUMBER() OVER (PARTITION BY results.probe_dst_addr,results.reply_src_addr ORDER BY bgp.len DESC) AS row_num
+                ROW_NUMBER() OVER (PARTITION BY results.probe_dst_addr,results.reply_src_addr, results.probe_src_port ORDER BY bgp.len DESC) AS row_num
             FROM {results_table(measurement_id)} results
             CROSS JOIN {bgp_table(measurement_id)} bgp
             WHERE results.probe_dst_addr >= tupleElement(bgp.ipv6_range,1) AND results.probe_dst_addr <= tupleElement(bgp.ipv6_range,2)
